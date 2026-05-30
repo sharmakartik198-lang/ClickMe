@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kartik ❤️ Shivani</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+    color:white;
+
+    background:linear-gradient(
+        -45deg,
+        #ff4d6d,
+        #ff758f,
+        #a855f7,
+        #6366f1
+    );
+
+    background-size:400% 400%;
+    animation:gradient 12s ease infinite;
+}
+
+@keyframes gradient{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+.card{
+    max-width:800px;
+    width:100%;
+    padding:45px;
+    text-align:center;
+
+    border-radius:30px;
+
+    background:rgba(255,255,255,0.12);
+    backdrop-filter:blur(15px);
+
+    border:1px solid rgba(255,255,255,0.2);
+
+    box-shadow:0 20px 60px rgba(0,0,0,0.25);
+}
+
+.names{
+    letter-spacing:3px;
+    margin-bottom:15px;
+    opacity:.9;
+}
+
+h1{
+    font-size:3rem;
+    margin-bottom:25px;
+}
+
+.photo-link{
+    display:inline-block;
+    text-decoration:none;
+}
+
+.photo-card{
+    width:320px;
+    margin:0 auto 25px;
+    padding:8px;
+
+    border-radius:25px;
+
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(10px);
+
+    box-shadow:0 15px 40px rgba(0,0,0,0.25);
+
+    transition:.4s;
+}
+
+.photo-card:hover{
+    transform:translateY(-5px) scale(1.03);
+}
+
+.photo-card img{
+    width:100%;
+    display:block;
+    border-radius:20px;
+}
+
+.message{
+    font-size:1.2rem;
+    line-height:1.9;
+}
+
+.countdown{
+    margin:25px 0;
+    font-size:1.3rem;
+    font-weight:600;
+
+    padding:15px 20px;
+
+    border-radius:15px;
+
+    background:rgba(0,0,0,0.2);
+
+    display:inline-block;
+}
+
+.footer{
+    margin-top:35px;
+    font-size:1.1rem;
+    font-weight:600;
+}
+
+.heart{
+    margin-top:15px;
+    font-size:2.5rem;
+    animation:pulse 1.8s infinite;
+}
+
+@keyframes pulse{
+    0%,100%{
+        transform:scale(1);
+    }
+    50%{
+        transform:scale(1.2);
+    }
+}
+
+@media(max-width:768px){
+
+    .card{
+        padding:30px;
+    }
+
+    h1{
+        font-size:2rem;
+    }
+
+    .photo-card{
+        width:250px;
+    }
+
+    .message{
+        font-size:1rem;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <div class="names">
+        KARTIK ❤️ SHIVANI
+    </div>
+
+    <h1>Babe, Please Come Back Soon</h1>
+
+    <!-- Hyperlinked Photo -->
+    <a href="photo.jpg" target="_blank" class="photo-link">
+
+        <div class="photo-card">
+            <img src="photo.jpg" alt="Kartik and Shivani">
+        </div>
+
+    </a>
+
+    <div class="message">
+        Living without you for 4 days feels impossible,
+        let alone 6 months.
+        <br><br>
+
+        I really want to hug you, sleep beside you,
+        and kiss you like crazy when you come back.
+        <br><br>
+
+        Love you from a past life, Babez. ❤️
+    </div>
+
+    <div class="countdown">
+        ⏳ Until I see you again:
+        <span id="timer"></span>
+    </div>
+
+    <div class="footer">
+        Forever Yours,<br>
+        Kartik
+    </div>
+
+    <div class="heart">❤️</div>
+
+</div>
+
+<script>
+
+const timerEl = document.getElementById("timer");
+
+// Next Monday 9:00 AM
+const targetDate = new Date();
+
+const daysUntilMonday =
+    (1 - targetDate.getDay() + 7) % 7 || 7;
+
+targetDate.setDate(
+    targetDate.getDate() + daysUntilMonday
+);
+
+targetDate.setHours(9,0,0,0);
+
+function updateCountdown(){
+
+    const now = new Date();
+    const diff = targetDate - now;
+
+    if(diff <= 0){
+        timerEl.innerHTML = "She's here ❤️";
+        return;
+    }
+
+    const days =
+        Math.floor(diff / (1000*60*60*24));
+
+    const hours =
+        Math.floor(
+            (diff/(1000*60*60)) % 24
+        );
+
+    const minutes =
+        Math.floor(
+            (diff/(1000*60)) % 60
+        );
+
+    const seconds =
+        Math.floor(
+            (diff/1000) % 60
+        );
+
+    timerEl.textContent =
+        `${days}d ${hours}h ${minutes}m ${seconds}s`;
+}
+
+updateCountdown();
+setInterval(updateCountdown,1000);
+
+</script>
+
+</body>
+</html>
