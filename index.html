@@ -354,6 +354,48 @@ h1{
     }
 }
 
+
+#specialMessage{
+    opacity:0;
+    transform:translateY(40px) scale(.95);
+    transition:all 2.5s ease;
+}
+#specialMessage.show{
+    opacity:1;
+    transform:translateY(0) scale(1);
+}
+.zoom-love{
+    animation:loveZoom 12s ease forwards;
+}
+@keyframes loveZoom{
+    from{transform:scale(1);}
+    to{transform:scale(1.15);}
+}
+#loveOverlay{
+    position:fixed; inset:0;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:30px;
+    font-size:3rem;
+    font-weight:700;
+    color:white;
+    background:rgba(0,0,0,.75);
+    z-index:10000;
+    opacity:0;
+}
+#loveOverlay.show{
+    display:flex;
+    animation:overlayReveal 4s forwards;
+}
+@keyframes overlayReveal{
+    0%{opacity:0;}
+    20%{opacity:1;}
+    80%{opacity:1;}
+    100%{opacity:0;}
+}
+
 </style>
 </head>
 
@@ -372,6 +414,36 @@ h1{
     <div class="tagline">
         Our lives changed forever on 1st June 2025 ❤️
     </div>
+    
+    <div id="specialMessage" style="
+display:none;
+margin:35px 0;
+padding:35px;
+border-radius:30px;
+background:rgba(255,255,255,.18);
+backdrop-filter:blur(15px);
+border:1px solid rgba(255,255,255,.25);
+box-shadow:0 15px 50px rgba(255,77,109,.35);
+">
+    <div style="font-size:3rem;margin-bottom:15px;">❤️❤️❤️</div>
+    <div style="font-size:2rem;font-weight:700;">Happy Anniversary My Love ❤️</div>
+    <div style="margin-top:25px;font-size:1.25rem;line-height:2;">
+        One year ago, our story began.<br><br>
+        Through every laugh, every late-night conversation, every smile, every memory, and every challenge...<br><br>
+        We made it here.<br><br>
+        <span style="font-size:1.5rem;font-weight:700;">
+        ❤️ Finally, We Are Together ❤️
+        </span><br><br>
+        No more waiting. Just us.<br><br>
+        ❤️ 365 Days Down. Forever To Go. ❤️<br><br>
+        I choose you. Today. Tomorrow. Always. ❤️
+    </div>
+    </div>
+
+    <div id="loveOverlay">
+        ❤️ After All The Waiting... We Are Finally Together ❤️
+    </div>
+
 
     <a href="photo.jpg" target="_blank" class="photo-link">
 
@@ -558,10 +630,13 @@ setInterval(updateLoveTimer,1000);
 /* Anniversary Countdown */
 
 const anniversary =
-new Date("2026-06-01T09:00:00+05:30");
+new Date("2026-06-01T08:30:00+05:30");
 
 const anniversaryTimer =
 document.getElementById("anniversaryTimer");
+
+const specialMessage = document.getElementById("specialMessage");
+const photo = document.querySelector(".photo-card img");
 
 function updateCountdown(){
 
@@ -573,7 +648,42 @@ function updateCountdown(){
     if(diff <= 0){
 
         anniversaryTimer.innerHTML =
-        "🎉 Today ❤️";
+        "❤️ FINALLY WE ARE TOGETHER ❤️";
+
+        specialMessage.style.display = "block";
+
+        setTimeout(()=>{
+            specialMessage.classList.add("show");
+        },100);
+
+        if(photo){
+            photo.classList.add("zoom-love");
+        }
+
+        const overlay = document.getElementById("loveOverlay");
+        if(overlay && !overlay.classList.contains("show")){
+            overlay.classList.add("show");
+        }
+
+        for(let i=0;i<150;i++){
+            setTimeout(()=>{
+                const heart=document.createElement("div");
+                heart.innerHTML="❤️";
+                heart.style.position="fixed";
+                heart.style.left=Math.random()*100+"vw";
+                heart.style.top=Math.random()*100+"vh";
+                heart.style.fontSize=(20+Math.random()*40)+"px";
+                heart.style.pointerEvents="none";
+                heart.style.zIndex="9999";
+                document.body.appendChild(heart);
+                heart.animate([
+                    {transform:"scale(0)",opacity:1},
+                    {transform:"scale(1.5)",opacity:1},
+                    {transform:"translateY(-200px)",opacity:0}
+                ],{duration:3000});
+                setTimeout(()=>heart.remove(),3000);
+            },i*40);
+        }
 
         return;
     }
